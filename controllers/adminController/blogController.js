@@ -1,3 +1,4 @@
+import cloudinary from "../../config/cloudinary.js";
 import { blog } from "../../models/blogModel.js";
 
 
@@ -10,7 +11,10 @@ export const createBlog = async (req, res) => {
       metaTitle,
       metaKeywords,
       metaDescription,
-      status
+      status,
+      subCategory,
+      category,
+      canonical
     } = req.body;
 
     // Validate required fields
@@ -34,6 +38,9 @@ export const createBlog = async (req, res) => {
       metaKeywords,
       metaDescription,
       status,
+      subCategory,
+      category,
+      canonical
     });
 
     return res.status(201).json({
@@ -58,32 +65,49 @@ export const createBlog = async (req, res) => {
 
 export const getBlogs = async (req, res) => {
   try {
-    const blogs = await blog.find().sort({ createdAt: -1 });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
+    const skip = (page - 1) * limit;
 
-    return res.status(200).json({
+    const category = req.query.category;
+
+    const query = {};
+    if (category && category !== "all") {
+      query.category = category;
+    }
+
+    const blogs = await blog
+      .find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await blog.countDocuments(query);
+
+    res.status(200).json({
       success: true,
-      statusCode: 200,
-      message: "Blogs retrieved successfully.",
-      count: blogs.length,
+      message: "Blogs retrieved successfully",
       data: blogs,
+      total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
     });
 
   } catch (error) {
-    console.error("Error fetching blogs:", error);
-
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      statusCode: 500,
-      message: "An unexpected server error occurred while fetching blogs.",
+      message: "Error fetching blogs",
       error: error.message,
     });
   }
 };
 
 
+
 export const getBlog = async (req, res) => {
   try {
     const blogs = await blog.findById(req.params.id);
+    
     if (!blogs) return res.status(404).json({ success: false, error: "Not Found" });
 
     res.json({ success: true, data: blogs });
@@ -94,6 +118,7 @@ export const getBlog = async (req, res) => {
 
 export const updateBlog = async (req, res) => {
   try {
+    
     const updates = req.body;
 
     // Fetch existing blog
