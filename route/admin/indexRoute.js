@@ -7,6 +7,8 @@ import blogRoute from './blogRoute.js'
 import newsletterRoute from './newsletterRoute.js'
 import packagesRoute from './packagesRoutes.js'
 
+import seoRoute from './seoRoute.js'
+import galleryRoute from './galleryRoute.js'
 const adminroute =express.Router()
 adminroute.use('/user',userRoute)
 adminroute.use('/auth',authRoute)
@@ -15,4 +17,6 @@ adminroute.use('/enquiry',enquiryRoute)
 adminroute.use('/blog',blogRoute)
 adminroute.use('/newsletter',newsletterRoute)
 adminroute.use('/packages',packagesRoute)
+adminroute.use('/seo',seoRoute)
+adminroute.use('/gallery',galleryRoute)
 export default adminroute
