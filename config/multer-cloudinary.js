@@ -5,7 +5,7 @@ import cloudinary from "./cloudinary.js";
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "adl_blogs", // Cloudinary folder name
+    folder: "/ADL/adl_blogs", // Cloudinary folder name
     allowed_formats: ["jpg", "jpeg", "png", "webp"],
   },
 });
@@ -14,3 +14,11 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 export default upload;
+const galleryStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "/ADL/adl_gallery",   // <--- NEW FOLDER
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  },
+});
+export const uploadGalleryImage = multer({ storage: galleryStorage });

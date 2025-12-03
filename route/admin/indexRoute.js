@@ -4,10 +4,14 @@ import authRoute from './authRoute.js'
 import faqRoute from './faqRoute.js'
 import enquiryRoute from './enquiryRoute.js'
 import blogRoute from './blogRoute.js'
+import seoRoute from './seoRoute.js'
+import galleryRoute from './galleryRoute.js'
 const adminroute =express.Router()
 adminroute.use('/user',userRoute)
 adminroute.use('/auth',authRoute)
 adminroute.use('/faq',faqRoute)
 adminroute.use('/enquiry',enquiryRoute)
 adminroute.use('/blog',blogRoute)
+adminroute.use('/seo',seoRoute)
+adminroute.use('/gallery',galleryRoute)
 export default adminroute
