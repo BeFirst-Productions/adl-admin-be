@@ -4,8 +4,7 @@ import { seo } from "../../models/seoModel.js";
 export const saveSeo = async (req, res) => {
   try {
     let { page, innerPage, title, keywords, description, canonical } = req.body;
-
-
+    
     // Ensure keywords is ALWAYS an array
     const keywordArray = Array.isArray(keywords)
       ? keywords
