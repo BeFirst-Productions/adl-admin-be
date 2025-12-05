@@ -8,6 +8,7 @@ import adminroute from './route/admin/indexRoute.js';
 import morgan from 'morgan';
 import path from "path";
 import { fileURLToPath } from "url";  // ⭐ Required for __dirname fix
+import publicRoute from './route/public/indexRoute.js';
 
 // Fix __dirname for ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +22,7 @@ app.use(morgan("dev"));
 connectDB();
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173','http://localhost:3000'],
   credentials: true,
 }));
 
@@ -33,6 +34,7 @@ env.config();
 
 // Routes
 app.use('/admin', adminroute);
+app.use('/public/v1', publicRoute);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

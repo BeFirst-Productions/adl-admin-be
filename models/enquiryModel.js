@@ -15,11 +15,6 @@ const enquirySchema = new mongoose.Schema({
     required: true,
 
   },
-  service: {
-    type: String,
-    required: true,
-    
-  },
   message: {
     type: String,
     required: true,
