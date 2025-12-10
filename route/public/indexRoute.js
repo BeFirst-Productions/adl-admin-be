@@ -1,3 +1,4 @@
+import blogRoute from "./blogRoute.js"
 import enquiryRoute from "./enquiryRoute.js"
 import faqRoute from "./faqRoute.js"
 import galleryRoute from "./galleryRoute.js"
@@ -13,6 +14,7 @@ publicRoute.use('/seo',seoRoute)
 publicRoute.use('/enquiry',enquiryRoute)
 publicRoute.use('/gallery',galleryRoute)
 publicRoute.use('/faq',faqRoute)
+publicRoute.use('/blog',blogRoute)
 publicRoute.use('/packages',packagesRoute)
 publicRoute.use('/newsletter',newsletterRoute)
 
