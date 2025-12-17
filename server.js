@@ -10,6 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import adminroute from './route/admin/indexRoute.js';
 import publicRoute from './route/public/indexRoute.js';
+import cookieParser from 'cookie-parser';
 import http from 'http';
 import { initSocketServer } from './socket/socketServer.js';
 import { startPoller } from './socket/poller.js';
@@ -20,8 +21,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Dev logger
-app.use(morgan('dev'));
+app.use(morgan("dev"));
+
+app.use(cookieParser()); 
+// Connect DB
+connectDB();
 
 // Cors - allow your frontend origins
 app.use(cors({
