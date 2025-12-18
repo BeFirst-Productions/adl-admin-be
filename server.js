@@ -10,7 +10,7 @@ import http from 'http';
 // Config imports
 import { config } from './config/environment.js';
 import { getCorsConfig, corsDebugMiddleware } from './config/corsConfig.js';
-import { securityHeaders, apiLimiter, authLimiter } from './config/security.js';
+// import { securityHeaders, apiLimiter, authLimiter } from './config/security.js';
 import connectDB from './config/connectDb.js';
 
 // Route imports
@@ -25,7 +25,7 @@ const app = express();
 const server = http.createServer(app);
 
 // ============ MIDDLEWARE ============
-app.use(securityHeaders);
+// app.use(securityHeaders);
 app.use(morgan(config.isProduction ? 'combined' : 'dev'));
 app.use(cookieParser());
 
@@ -40,10 +40,10 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Rate limiting (production only)
-if (config.isProduction) {
-  app.use('/api', apiLimiter);
-  app.use('/api/v1/admin/auth', authLimiter);
-}
+// if (config.isProduction) {
+//   app.use('/api', apiLimiter);
+//   app.use('/api/v1/admin/auth', authLimiter);
+// }
 
 // ============ ROUTES ============
 app.get('/health', (req, res) => {
